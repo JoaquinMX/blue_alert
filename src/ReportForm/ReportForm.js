@@ -47,28 +47,8 @@ function ReportForm() {
         email !== '' && 
         phoneNumber !== '' &&  
         isVerified
-/*
-        console.log(allValuesValidated);
 
-        useEffect(() => {
-            const sendData = {
-                name: name,
-                email: email,
-                genre: genre,
-                phone: phoneNumber,
-                incidentKind: incidentKind,
-                description: description,
-                latitude: latitude,
-                longitude: longitude,
-                isVictim: isVictim === '1' ? true : false,
-                isReportedToPolice: isReportedToPolice === '1' ? true : false,
-                policeReport: policeReport,
-                isVerified: isVerified
-            };
-        }, []);
-*/
-
-async function createUserReport() {
+function createUserReport() {
     const sendData = {
         name: name,
         email: email,
@@ -104,9 +84,9 @@ async function createUserReport() {
         if (resData.errors) {
             toast({
                 title: 'Error.',
-                description: "Ocurrio un error al crear el reporte",
+                description: "Ocurrio un error al crear el reporte" + resData.errors[0].message,
                 status: 'error',
-                duration: 4000,
+                duration: 10000,
                 isClosable: true,
               })
         
@@ -161,7 +141,7 @@ async function createUserReport() {
                     <FormLabel>Descripción</FormLabel>
                     <Input type='phone' onChange={(e) => {setDescription(e.target.value)}} />
 
-                    <RadioGroup onChange={(e) => { setIsVictim(e.target.value) }} value={isVictim}>
+                    <RadioGroup onChange={setIsVictim} value={isVictim}>
                         <FormLabel>¿Fuiste Victima?</FormLabel>
 
                         <Stack direction='row'>
@@ -170,7 +150,7 @@ async function createUserReport() {
                         </Stack>
                     </RadioGroup>
 
-                    <RadioGroup onChange={(e) => { setIsReportedToPolice(e.target.value)}} value={isReportedToPolice}>
+                    <RadioGroup onChange={setIsReportedToPolice} value={isReportedToPolice}>
                         <FormLabel>¿Ya fue reportado?</FormLabel>
 
                         <Stack direction='row' >
@@ -193,7 +173,7 @@ async function createUserReport() {
                         onChange={(e) => handleOnChangeCap(e)}
                     />
                 </FormControl>
-                <Button disable={`${!allValuesValidated}`} onClick={createUserReport()}>Subir Reporte</Button>
+                <Button disable={`${!allValuesValidated}`} onClick={createUserReport}>Subir Reporte</Button>
             </DrawerBody>
           </DrawerContent>
         </Drawer>
