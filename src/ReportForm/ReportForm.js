@@ -19,8 +19,7 @@ import {
 import { Box, SkeletonText } from '@chakra-ui/react';
 import { useJsApiLoader, GoogleMap, Marker } from '@react-google-maps/api';
 import { createUserReportMutation } from '../graphql/fields.js'
-
-import ReCAPTCHA from "react-google-recaptcha";
+import ReportCaptcha from './ReportCaptcha.js';
 
 function ReportForm() {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -170,10 +169,18 @@ function createUserReport() {
                     : 
                     <></>
                     }
-
-                    <ReCAPTCHA
-                        sitekey="6LeaWSkiAAAAAIoGI0-R3bRuMxr5u6O3PwIOVxwk"
-                        onChange={(e) => handleOnChangeCap(e)}
+                    <ReportCaptcha email={email} 
+                    name={name}
+                    genre={genre}
+                    phone={phoneNumber}
+                    incidentKind={incidentKind}
+                    description={description}
+                    latitude={myRef.lat}
+                    longitude={myRef.lng}
+                    isVictim={isVictim === '1' ? true : false}
+                    isReportedToPolice={isReportedToPolice === '1' ? true : false}
+                    policeReport={policeReport}
+                    isVerified={isVerified}
                     />
                 </FormControl>
                 <Button disable={`${!allValuesValidated}`} onClick={createUserReport}>Subir Reporte</Button>
