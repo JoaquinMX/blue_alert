@@ -19,7 +19,7 @@ import {
 import { Box, SkeletonText } from '@chakra-ui/react';
 import { useJsApiLoader, GoogleMap, Marker } from '@react-google-maps/api';
 import { createUserReportMutation } from '../graphql/fields.js'
-import ReportCaptcha from './ReportCaptcha.js';
+
 import ReCAPTCHA from "react-google-recaptcha";
 
 function ReportForm() {
@@ -68,6 +68,42 @@ function createUserReport() {
     const request = createUserReportMutation(sendData);
 
     console.log(request);
+
+    fetch('https://dev.linkedblocks.xyz/api', {
+        method: 'POST',
+        body: JSON.stringify(request),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => {
+        if (res.status !== 200 && res.status !== 201) {
+            throw new Error('Falied POST');
+        }
+
+        return res.json();
+    }).then(resData => {
+        if (resData.errors) {
+            toast({
+                title: 'Error.',
+                description: "Ocurrio un error al crear el reporte" + resData.errors[0].message,
+                status: 'error',
+                duration: 10000,
+                isClosable: true,
+              })
+        
+        } else {
+            toast({
+                title: 'Reporte Creado.',
+                description: "Su reporte ha sido creado",
+                status: 'success',
+                duration: 4000,
+                isClosable: true,
+              })
+
+        }
+    }).catch(err => {
+        console.log(err);
+    });
 }
         
     return (
@@ -135,18 +171,9 @@ function createUserReport() {
                     <></>
                     }
 
-                    <ReportCaptcha email={email} 
-                    name={name}
-                    genre={genre}
-                    phone={phoneNumber}
-                    incidentKind={incidentKind}
-                    description={description}
-                    latitude={latitude}
-                    longitude={longitude}
-                    isVictim={isVictim === '1' ? true : false}
-                    isReportedToPolice={isReportedToPolice === '1' ? true : false}
-                    policeReport={policeReport}
-                    isVerified={isVerified}
+                    <ReCAPTCHA
+                        sitekey="6LeaWSkiAAAAAIoGI0-R3bRuMxr5u6O3PwIOVxwk"
+                        onChange={(e) => handleOnChangeCap(e)}
                     />
                 </FormControl>
                 <Button disable={`${!allValuesValidated}`} onClick={createUserReport}>Subir Reporte</Button>

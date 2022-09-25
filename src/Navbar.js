@@ -1,8 +1,7 @@
 import React from 'react';
-import { useColorMode, Grid, GridItem, Button, IconButton, Link, Box, Text, Image } from '@chakra-ui/react';
+import { useColorMode, Grid, GridItem, Button, IconButton, Link } from '@chakra-ui/react';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
-import classNames from 'classnames';
-import BALogo from './assets/imgs/ala-removebg-preview.png'
+
 import './Css/Navbar.scss';
 
 function Navbar() {
@@ -12,14 +11,9 @@ function Navbar() {
         <div className="navbar-content">
             <Grid templateColumns="repeat(8, 1fr)" gap={3}>
                 <GridItem className="home-row" colSpan={1}>
-                    <Box
-                    className={classNames('section-skill-card', {
-                        light: colorMode === 'light',
-                        dark: colorMode === 'dark'
-                    })}>
-                    <Image className="logo" src={BALogo} alt='Nuevo León Logo' />
-                    <Text className="card-label">Blue Alert</Text>
-                </Box>
+                    <Button className="home-row-content" variant="link">
+                        Blue Alert
+                    </Button>
                 </GridItem>
                 <GridItem className="menu-row" colStart={2} colEnd={8}>
                     <ul className="menu-row-options">
