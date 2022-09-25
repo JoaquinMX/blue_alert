@@ -50,8 +50,8 @@ const ReportGenerator = (props) => {
   const handleChangeName = (event) => {
     setName(event.target.value);
   };
-  const handleChangePhone = (newValue) => {
-    setPhone(newValue);
+  const handleChangePhone = (event) => {
+    setPhone(event.target.value);
   };
   const handleOnChangeCap = (value) => {
     setIsVerified(true);
