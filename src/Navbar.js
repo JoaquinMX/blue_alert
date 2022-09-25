@@ -27,11 +27,6 @@ function Navbar() {
                                 <Button variant="link">Map</Button>
                             </Link>
                         </li>
-                        <li>
-                            <Link href="/dashboard">
-                                <Button variant="link">Dashboard</Button>
-                            </Link>
-                        </li>
                     </ul>
                 </GridItem>
                 <GridItem>

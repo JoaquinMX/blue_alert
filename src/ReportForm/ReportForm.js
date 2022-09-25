@@ -14,7 +14,6 @@ import {
     Stack,
     Select,
     useToast,
-    option,
     useDisclosure,
   } from '@chakra-ui/react'
 import { createUserReportMutation } from '../graphql/fields.js'
@@ -68,7 +67,7 @@ function createUserReport() {
 
     console.log(request);
 
-    fetch('dev.linkedblocks.xyz/api', {
+    fetch('https://dev.linkedblocks.xyz/api', {
         method: 'POST',
         body: JSON.stringify(request),
         headers: {

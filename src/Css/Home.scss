@@ -1,0 +1,25 @@
+.home-content {
+    width: 100%;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 50px;
+
+    .section {
+        display: table;
+        margin: 0 auto;
+        width: 80%;
+        padding-top: 100px;
+
+        .page-title {
+            font-size: 60px;
+            font-weight: bold;
+            padding-top: 80px;
+            padding-bottom: 30px;
+        }
+
+        .page-subtitle {
+            font-size: 35px;
+            font-weight: bold;
+        }
+    }
+}
