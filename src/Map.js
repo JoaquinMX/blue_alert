@@ -1,6 +1,7 @@
 import { React, useRef, useState } from 'react';
 import { Button, useDisclosure } from '@chakra-ui/react'
 import ReportForm from './ReportForm/ReportForm';
+import MapsOptimizedRoute from './components/MapsOptimizedRoute';
 
 function Map() {
 
@@ -27,6 +28,7 @@ function Map() {
             } else {
                 const pins = resData;
                 setMyRef(pins);
+                console.log(pins);
 
             }
         }).catch(err => {
@@ -38,6 +40,7 @@ function Map() {
         <>
             <ReportForm />
             {getCoordinates()}
+            <MapsOptimizedRoute myRef={myRef} />
         </>
     );
 }
