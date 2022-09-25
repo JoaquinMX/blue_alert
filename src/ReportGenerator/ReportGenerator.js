@@ -1,4 +1,4 @@
-import { TextField, Container, Box, Stack, Item } from "@mui/material";
+import { TextField, Container, Box, Stack, Item, Typography } from "@mui/material";
 import * as React from "react";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -60,8 +60,22 @@ const ReportGenerator = (props) => {
     setPhone(event.target.value);
   };
 
+  const style = { // TODO: Move to CSS
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
   return (
-    <div>
+    <Box sx={style}>
+        <Typography id="modal-modal-title" variant="h6" component="h2">Crear Reporte</Typography>
+
       <Stack spacing={2}>
         <TextField
           id="outlined-basic"
@@ -160,7 +174,8 @@ const ReportGenerator = (props) => {
         />
       </Stack>
       <Button variant="contained">Enviar</Button>
-    </div>
+    </Box>
   );
 };
+
 export default ReportGenerator;

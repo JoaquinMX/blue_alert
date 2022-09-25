@@ -4,26 +4,50 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 
 function Dashboard() {
     return (
-        <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="">
+        <Box sx={{ flexGrow: 3 }}>
+        <AppBar>
           <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
+            <Typography
+                variant="h6"
+                noWrap
+                component="a"
+                sx={{
+                    mr: 2,
+                    display: { xs: 'none', md: 'flex' },
+                    fontWeight: 700,
+                    letterSpacing: '.15rem',
+                    color: 'inherit',
+                    textDecoration: 'none',
+                }}
             >
-
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              News
+                BLUE ALERT
             </Typography>
-            <Button color="inherit">Login</Button>
+            <Menu
+              id="menu-appbar"
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              sx={{
+                display: { xs: 'block', md: 'none' },
+              }}
+            >               
+                <MenuItem>
+                  <Typography textAlign="center">PAGINA</Typography>
+                </MenuItem>
+                
+            </Menu>
           </Toolbar>
         </AppBar>
       </Box>
