@@ -11,6 +11,9 @@ function SearchFolio() {
 
   useEffect( () => {
     //REQUEST INFO TO API
+    if (haveTheUserSearch/** && cardExists */) {
+        setIsItDisplayingCard(true);
+    }
   }, [haveTheUserSearch]);
 
   return (
@@ -30,7 +33,7 @@ function SearchFolio() {
             </Box>
         </Container>
         <Container>
-            {isItDisplayingCard ? <StatusCard /> : haveTheUserSearch ? <Typography>No se han encotrado resultados con su búsqueda</Typography> : <Typography>Ingrese el folio que desea buscar</Typography>}
+            {isItDisplayingCard ? <StatusCard /> : haveTheUserSearch ? <Typography className='error-text'>No se han encotrado resultados con su búsqueda</Typography> : <Typography className='initial-text'>Ingrese el folio que desea buscar</Typography>}
         </Container>
     </Container>
     

@@ -5,39 +5,35 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import ReportCard from './ReportCard';
+const data = {
+    reportKey: 123456,
+    name: 'Joaquin',
+    genre: 'Otro',
+    phone: '6462558800',
+    incidentKind: 'Asalto y agresión',
+    //description
+    mapPoint: [255, 255],
+    timeStamp: Date.now(),
+    isVictim: true,    
+    isReportedToPolice: false,
+    // policeReport: 
 
-const bull = (
-    <Box
-      component="span"
-      sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-      •
-    </Box>
-  );
-  
+};
 
 function StatusCard() {
     return (
         <Card sx={{ minWidth: 275 }}>
           <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Word of the Day
-            </Typography>
-            <Typography variant="h5" component="div">
-              be{bull}nev{bull}o{bull}lent
-            </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              adjective
-            </Typography>
+            <Typography variant='h4'>{data.reportKey}</Typography>
             <Typography variant="body2">
-              well meaning and kindly.
-              <br />
-              {'"a benevolent smile"'}
+              {data.isReportedToPolice ? 'Este informe ha sido reportado con la policia y se le esta dando seguimiento' : 'Este informe no ha sido reportado con la policia, si deseas hacerlo en estos momentos estos fueron los datos que proporcionaste: '}
             </Typography>
+            {
+                data.isReportedToPolice ? "" : <ReportCard incidentKind={data.incidentKind} mapPoint={data.mapPoint} timeStamp={data.timeStamp}/>
+            }
+
           </CardContent>
-          <CardActions>
-            <Button size="small">Learn More</Button>
-          </CardActions>
         </Card>
       );
 }
