@@ -1,7 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Grid, GridItem } from '@chakra-ui/react';
+import Map from './Map';
 import Navbar from './Navbar';
+import ReportForm from './ReportForm/ReportForm';
 
 function Content() {
     return(
@@ -19,7 +21,7 @@ function Content() {
             <BrowserRouter>
                 <Routes>
                     <Route exact path="/home" element={<div>home</div>}></Route>
-                    <Route exact path="/map" element={<div>map</div>}></Route>
+                    <Route exact path="/map" element={<ReportForm/>}></Route>
                     <Route exact path="/dashboard" element={<div>dashboard</div>}></Route>
                     <Route path="*" element={<Navigate to="/home" replace />} />
                 </Routes>
