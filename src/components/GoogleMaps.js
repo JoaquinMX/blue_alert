@@ -6,7 +6,7 @@ const center = { lat: 25.645881, lng: -100.288731};
 function GoogleMaps() {
 
     const [map, setMap] = useState(/** @type google.maps.Map */null);
-    const [myRef, setMyRef] = useState();
+    const [myRef, setMyRef] = useState({ lat: 25.645881, lng: -100.288731});
 
     /** @type React.mutableRefObject<HTMLInputElement> */
     const ref = useRef();
@@ -24,7 +24,7 @@ function GoogleMaps() {
     if (value === '') {
         return;
     }
-    const centerPoint = { lat: value.latLng.lat(), lng: value.latLng.lng() }
+    const centerPoint = { lat: parseFloat(value.latLng.lat()), lng: parseFloat(value.latLng.lng()) }
     setMyRef(centerPoint);
   }
 
@@ -40,16 +40,16 @@ function GoogleMaps() {
             onLoad={(map) => setMap(map)}
             onClick={(e) => setValuesOfRef(e)}
         >
-            {/* Here display markers or directions */}
+            {<Marker position={myRef} map={map}/> }
         </GoogleMap>
     </Box>
   )
 }
 
-function CustomMarker({lat, lng}) {
-    const customCenter = { lat: lat, lng: lng };
+
+function CustomMarker(myRef) {
     return (
-        <Marker position={customCenter}></Marker>
+        <Marker position={myRef} visible={true}></Marker>
     )
 }
 
