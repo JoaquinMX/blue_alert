@@ -13,13 +13,15 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
-
+import InputAdornment from "@mui/material/InputAdornment";
+import Button from "@mui/material/Button";
 import FormLabel from "@mui/material/FormLabel";
 
 import FormHelperText from "@mui/material/FormHelperText";
 
 import Autocomplete from "@mui/material/Autocomplete";
 import { MuiTelInput } from "mui-tel-input";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const ReportGenerator = (props) => {
   const [date, setDate] = React.useState(dayjs());
@@ -29,6 +31,7 @@ const ReportGenerator = (props) => {
   const [folio, setFolio] = React.useState("");
   const [name, setName] = React.useState("");
   const [phone, setPhone] = React.useState("");
+  const [isVerified, setIsVerified] = React.useState(false);
 
   const crimes = [
     { label: "Asesinato", id: 1 },
@@ -56,6 +59,12 @@ const ReportGenerator = (props) => {
   const handleChangePhone = (newValue) => {
     setPhone(newValue);
   };
+  const handleOnChangeCap = (value) => {
+    setIsVerified(true);
+  };
+  const handleOnChangePhone = (event) => {
+    setPhone(event.target.value);
+  };
 
   return (
     <div>
@@ -66,6 +75,18 @@ const ReportGenerator = (props) => {
           variant="outlined"
           value={name}
           onChange={handleChangeName}
+        />
+        <TextField
+          id="With normal TextField"
+          label="Numero de telefono"
+          variant="outlined"
+          value={phone}
+          onChange={handleChangePhone}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">+52</InputAdornment>
+            ),
+          }}
         />
 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -141,11 +162,12 @@ const ReportGenerator = (props) => {
           </RadioGroup>
         </FormControl>
 
-        {
-          //aqui muevele
-          //<MuiTelInput value={phone} onChange={handleChangePhone} />
-        }
+        <ReCAPTCHA
+          sitekey="6LeaWSkiAAAAAIoGI0-R3bRuMxr5u6O3PwIOVxwk"
+          onChange={(e) => handleOnChangeCap(e)}
+        />
       </Stack>
+      <Button variant="contained">Enviar</Button>
     </div>
   );
 };
