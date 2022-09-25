@@ -78,8 +78,8 @@ async function createUserReport() {
         description: description,
         latitude: latitude,
         longitude: longitude,
-        isVictim: isVictim,
-        isReportedToPolice: isReportedToPolice,
+        isVictim: isVictim === '1' ? true : false,
+        isReportedToPolice: isReportedToPolice === '1' ? true : false,
         policeReport: policeReport,
         isVerified: isVerified
     };
