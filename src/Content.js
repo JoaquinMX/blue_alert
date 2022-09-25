@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Grid, GridItem } from '@chakra-ui/react';
 import Map from './Map';
 import Navbar from './Navbar';
-import ReportForm from './ReportForm/ReportForm';
 import Home from './Home';
 import GoogleMaps from './components/GoogleMaps';
 
@@ -23,7 +22,7 @@ function Content() {
             <BrowserRouter>
                 <Routes>
                     <Route exact path="/home" element={<Home />}></Route>
-                    <Route exact path="/map" element={<ReportForm/>}></Route>
+                    <Route exact path="/map" element={<Map/>}></Route>
                     <Route exact path="/dashboard" element={<div>dashboard</div>}></Route>
                     <Route exact path="/themap" element={<GoogleMaps />}> </Route>
                     <Route path="*" element={<Navigate to="/home" replace />} />
