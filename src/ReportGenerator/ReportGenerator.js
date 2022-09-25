@@ -1,8 +1,6 @@
 import { TextField, Container, Box, Stack, Item } from "@mui/material";
 import * as React from "react";
 import dayjs from "dayjs";
-import { DateTimePicker } from "@mui/x-date-pickers";
-
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -16,11 +14,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import InputAdornment from "@mui/material/InputAdornment";
 import Button from "@mui/material/Button";
 import FormLabel from "@mui/material/FormLabel";
-
-import FormHelperText from "@mui/material/FormHelperText";
-
 import Autocomplete from "@mui/material/Autocomplete";
-import { MuiTelInput } from "mui-tel-input";
 import ReCAPTCHA from "react-google-recaptcha";
 
 const ReportGenerator = (props) => {
@@ -88,7 +82,6 @@ const ReportGenerator = (props) => {
             ),
           }}
         />
-
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
             label="Fecha de incidencia"
@@ -161,7 +154,6 @@ const ReportGenerator = (props) => {
             <FormControlLabel value="otro" control={<Radio />} label="Otro" />
           </RadioGroup>
         </FormControl>
-
         <ReCAPTCHA
           sitekey="6LeaWSkiAAAAAIoGI0-R3bRuMxr5u6O3PwIOVxwk"
           onChange={(e) => handleOnChangeCap(e)}
