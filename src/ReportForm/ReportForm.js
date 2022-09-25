@@ -17,7 +17,7 @@ import {
     useDisclosure,
   } from '@chakra-ui/react'
 import { createUserReportMutation } from '../graphql/fields.js'
-import ReCAPTCHA from "react-google-recaptcha";
+import ReportCaptcha from './ReportCaptcha.js';
 
 function ReportForm() {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -66,42 +66,6 @@ function createUserReport() {
     const request = createUserReportMutation(sendData);
 
     console.log(request);
-
-    fetch('https://dev.linkedblocks.xyz/api', {
-        method: 'POST',
-        body: JSON.stringify(request),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(res => {
-        if (res.status !== 200 && res.status !== 201) {
-            throw new Error('Falied POST');
-        }
-
-        return res.json();
-    }).then(resData => {
-        if (resData.errors) {
-            toast({
-                title: 'Error.',
-                description: "Ocurrio un error al crear el reporte" + resData.errors[0].message,
-                status: 'error',
-                duration: 10000,
-                isClosable: true,
-              })
-        
-        } else {
-            toast({
-                title: 'Reporte Creado.',
-                description: "Su reporte ha sido creado",
-                status: 'success',
-                duration: 4000,
-                isClosable: true,
-              })
-
-        }
-    }).catch(err => {
-        console.log(err);
-    });
 }
         
     return (
@@ -167,10 +131,7 @@ function createUserReport() {
                     <></>
                     }
 
-                    <ReCAPTCHA
-                        sitekey="6LeaWSkiAAAAAIoGI0-R3bRuMxr5u6O3PwIOVxwk"
-                        onChange={(e) => handleOnChangeCap(e)}
-                    />
+                    <ReportCaptcha email={email} />
                 </FormControl>
                 <Button disable={`${!allValuesValidated}`} onClick={createUserReport}>Subir Reporte</Button>
             </DrawerBody>
