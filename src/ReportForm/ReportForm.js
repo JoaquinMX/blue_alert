@@ -131,7 +131,19 @@ function createUserReport() {
                     <></>
                     }
 
-                    <ReportCaptcha email={email} />
+                    <ReportCaptcha email={email} 
+                    name={name}
+                    genre={genre}
+                    phone={phoneNumber}
+                    incidentKind={incidentKind}
+                    description={description}
+                    latitude={latitude}
+                    longitude={longitude}
+                    isVictim={isVictim === '1' ? true : false}
+                    isReportedToPolice={isReportedToPolice === '1' ? true : false}
+                    policeReport={policeReport}
+                    isVerified={isVerified}
+                    />
                 </FormControl>
                 <Button disable={`${!allValuesValidated}`} onClick={createUserReport}>Subir Reporte</Button>
             </DrawerBody>
