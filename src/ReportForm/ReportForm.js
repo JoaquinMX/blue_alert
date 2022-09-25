@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import {
     Button,
     Drawer,
@@ -18,16 +18,44 @@ import ReCAPTCHA from "react-google-recaptcha";
 
 function ReportForm() {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [ name, setName ] = useState('');
+    const [ email, setEmail ] = useState('');
+    const [ phoneNumber, setPhoneNumber ] = useState('');
+    const [ incidentDate, setIncidentDate ] = useState(1664099542684);
+    const [ incidentTime, setIncidentTime ] = useState(1664099542684);
     const [victimValue, setVictimValue] = useState('1');
-    const [policeReportValue, setPoliceReportValue] = useState('1')
+    const [policeReportValue, setPoliceReportValue] = useState('1');
     const [isVerified, setIsVerified] = useState(false);
 
 
+
     const handleOnChangeCap = (value) => {
+        console.log(incidentDate);
         setIsVerified(true);
       };
 
-  
+      // Not Working
+    let allValuesValidated = name !== '' && 
+        email !== '' && 
+        phoneNumber !== '' &&  
+        incidentDate !== 1664099542684 &&
+        incidentTime !== 1664099542684 &&
+        isVerified
+
+        console.log(allValuesValidated);
+
+        useEffect(() => {
+            const sendData = {
+                name: name,
+                email: email,
+                phoneNumber: phoneNumber,
+                incidentDate: incidentDate,
+                incidentTime: incidentTime,
+                victimValue: victimValue,
+                policeReportValue: policeReportValue,
+                isVerified: isVerified
+            };
+        }, []);
     return (
         <>
         <Button onClick={onOpen}>Crear Reporte</Button>
@@ -36,21 +64,24 @@ function ReportForm() {
           <DrawerContent>
             <DrawerHeader borderBottomWidth='1px'>Crear Reporte</DrawerHeader>
             <DrawerBody>
-                <FormControl>
+                <FormControl isRequired>
                     <FormLabel>Nombre Completo</FormLabel>
-                    <Input type='email' />
+                    <Input type='text' onChange={(e) => {setName(e.target.value)}} />
+
+                    <FormLabel>Correo Electrónico</FormLabel>
+                    <Input type='email' onChange={(e) => {setEmail(e.target.value)}} />
 
                     <FormLabel>Número de Teléfono</FormLabel>
-                    <Input type='phone' />
+                    <Input type='phone' onChange={(e) => {setPhoneNumber(e.target.value)}} />
 
                     <FormLabel>Fecha de Incidencia</FormLabel>
-                    <Input type='date' />
+                    <Input type='date' onChange={(e) => {setIncidentDate(e.target.value)}} />
 
                     <FormLabel>Hora de Incidencia</FormLabel>
-                    <Input type='time' />
+                    <Input type='time'onChange={(e) => {setIncidentTime(e.target.value)}}  />
 
                     <RadioGroup onChange={setVictimValue} value={victimValue}>
-                        <FormLabel>Fuiste Victima?</FormLabel>
+                        <FormLabel>¿Fuiste Victima?</FormLabel>
 
                         <Stack direction='row'>
                             <Radio value='1'>Si</Radio>
@@ -59,7 +90,7 @@ function ReportForm() {
                     </RadioGroup>
 
                     <RadioGroup onChange={setPoliceReportValue} value={policeReportValue}>
-                        <FormLabel>Ya fue reportado?</FormLabel>
+                        <FormLabel>¿Ya fue reportado?</FormLabel>
 
                         <Stack direction='row'>
                             <Radio value='1'>Si</Radio>
@@ -74,7 +105,7 @@ function ReportForm() {
                         onChange={(e) => handleOnChangeCap(e)}
                     />
                 </FormControl>
-                <Button onClick={onClose}>Subir Reporte</Button>
+                <Button disable={`${!allValuesValidated}`} onClick={onClose}>Subir Reporte</Button>
             </DrawerBody>
           </DrawerContent>
         </Drawer>
@@ -85,7 +116,7 @@ function ReportForm() {
 function ReportKeyForm() {
     return (
         <>
-            <FormLabel>Numero de Folio</FormLabel>
+            <FormLabel optionalIndicator>N&uacute;mero de Folio</FormLabel>
             <Input type='text' />
         </>
     )
