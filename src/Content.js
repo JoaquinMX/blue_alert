@@ -5,6 +5,7 @@ import Map from './Map';
 import Navbar from './Navbar';
 import ReportForm from './ReportForm/ReportForm';
 import Home from './Home';
+import GoogleMaps from './components/GoogleMaps';
 
 function Content() {
     return(
@@ -24,7 +25,9 @@ function Content() {
                     <Route exact path="/home" element={<Home />}></Route>
                     <Route exact path="/map" element={<ReportForm/>}></Route>
                     <Route exact path="/dashboard" element={<div>dashboard</div>}></Route>
+                    <Route exact path="/themap" element={<GoogleMaps />}> </Route>
                     <Route path="*" element={<Navigate to="/home" replace />} />
+                    
                 </Routes>
             </BrowserRouter>
             </Grid>

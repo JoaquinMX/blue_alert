@@ -19,6 +19,7 @@ import {
   } from '@chakra-ui/react'
 import { createUserReportMutation } from '../graphql/fields.js'
 import ReCAPTCHA from "react-google-recaptcha";
+import GoogleMaps from '../components/GoogleMaps.js';
 
 function ReportForm() {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -137,6 +138,8 @@ function createUserReport() {
                         <option value='Acoso'>Acoso</option>
                         <option value='Acoso'>Homicidio</option>
                     </Select>
+
+                    <GoogleMaps />
 
                     <FormLabel>Descripción</FormLabel>
                     <Input type='phone' onChange={(e) => {setDescription(e.target.value)}} />
