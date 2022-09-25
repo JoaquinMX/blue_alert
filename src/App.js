@@ -8,7 +8,6 @@ function App() {
     <div className='App'>
       <header className='App-header'>
         <BrowserRouter>
-        <main>
           <Routes>
             <Route exact path="/" element={<ReportGenerator />}>
               
@@ -16,8 +15,6 @@ function App() {
             <Route exact path="/search" element={<SearchFolio />}>
             </Route>
           </Routes>
-        </main>
-        <footer>Adios</footer>
       </BrowserRouter>
       </header>
     </div>
