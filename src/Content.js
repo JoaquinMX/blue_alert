@@ -4,6 +4,7 @@ import { Grid, GridItem } from '@chakra-ui/react';
 import Map from './Map';
 import Navbar from './Navbar';
 import ReportForm from './ReportForm/ReportForm';
+import Home from './Home';
 
 function Content() {
     return(
@@ -20,7 +21,7 @@ function Content() {
                 </GridItem>
             <BrowserRouter>
                 <Routes>
-                    <Route exact path="/home" element={<div>home</div>}></Route>
+                    <Route exact path="/home" element={<Home />}></Route>
                     <Route exact path="/map" element={<ReportForm/>}></Route>
                     <Route exact path="/dashboard" element={<div>dashboard</div>}></Route>
                     <Route path="*" element={<Navigate to="/home" replace />} />

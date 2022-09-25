@@ -34,6 +34,7 @@ function ReportForm() {
     const [ isReportedToPolice, setIsReportedToPolice] = useState('1');
     const [ policeReport, setPoliceReport ] = useState('');
     const [isVerified, setIsVerified] = useState(false);
+    const [createNowUserReport, setCreateNowUserReport] = useState(false);
 
     const toast = useToast()
 
@@ -46,7 +47,7 @@ function ReportForm() {
         email !== '' && 
         phoneNumber !== '' &&  
         isVerified
-
+/*
         console.log(allValuesValidated);
 
         useEffect(() => {
@@ -65,8 +66,10 @@ function ReportForm() {
                 isVerified: isVerified
             };
         }, []);
+*/
 
-    function createUserReport() {
+useEffect(() => {
+    async function createUserReport() {
         const sendData = {
             name: name,
             email: email,
@@ -86,7 +89,7 @@ function ReportForm() {
 
         console.log(request);
 
-        fetch('http://localhost:8000/api', {
+        fetch('https://54.167.131.221/api', {
             method: 'POST',
             body: JSON.stringify(request),
             headers: {
@@ -122,6 +125,10 @@ function ReportForm() {
             console.log(err);
         });
     }
+    createUserReport();
+
+}, [createNowUserReport])
+    
         
     return (
         <>
@@ -191,7 +198,7 @@ function ReportForm() {
                         onChange={(e) => handleOnChangeCap(e)}
                     />
                 </FormControl>
-                <Button disable={`${!allValuesValidated}`} onClick={createUserReport}>Subir Reporte</Button>
+                <Button disable={`${!allValuesValidated}`} onClick={setCreateNowUserReport(true)}>Subir Reporte</Button>
             </DrawerBody>
           </DrawerContent>
         </Drawer>
