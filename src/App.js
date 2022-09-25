@@ -1,4 +1,3 @@
-import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SearchFolio from './SearchFolio/SearchFolio';
 import ReportGenerator from './ReportGenerator/ReportGenerator';
