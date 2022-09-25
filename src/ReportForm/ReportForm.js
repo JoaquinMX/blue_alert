@@ -68,67 +68,62 @@ function ReportForm() {
         }, []);
 */
 
-useEffect(() => {
-    async function createUserReport() {
-        const sendData = {
-            name: name,
-            email: email,
-            genre: genre,
-            phone: phoneNumber,
-            incidentKind: incidentKind,
-            description: description,
-            latitude: latitude,
-            longitude: longitude,
-            isVictim: isVictim,
-            isReportedToPolice: isReportedToPolice,
-            policeReport: policeReport,
-            isVerified: isVerified
-        };
+async function createUserReport() {
+    const sendData = {
+        name: name,
+        email: email,
+        genre: genre,
+        phone: phoneNumber,
+        incidentKind: incidentKind,
+        description: description,
+        latitude: latitude,
+        longitude: longitude,
+        isVictim: isVictim,
+        isReportedToPolice: isReportedToPolice,
+        policeReport: policeReport,
+        isVerified: isVerified
+    };
 
-        const request = createUserReportMutation(sendData);
+    const request = createUserReportMutation(sendData);
 
-        console.log(request);
+    console.log(request);
 
-        fetch('https://54.167.131.221/api', {
-            method: 'POST',
-            body: JSON.stringify(request),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => {
-            if (res.status !== 200 && res.status !== 201) {
-                throw new Error('Falied POST');
-            }
+    fetch('dev.linkedblocks.xyz/api', {
+        method: 'POST',
+        body: JSON.stringify(request),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => {
+        if (res.status !== 200 && res.status !== 201) {
+            throw new Error('Falied POST');
+        }
 
-            return res.json();
-        }).then(resData => {
-            if (resData.errors) {
-                toast({
-                    title: 'Error.',
-                    description: "Ocurrio un error al crear el reporte",
-                    status: 'error',
-                    duration: 4000,
-                    isClosable: true,
-                  })
-            
-            } else {
-                toast({
-                    title: 'Reporte Creado.',
-                    description: "Su reporte ha sido creado",
-                    status: 'success',
-                    duration: 4000,
-                    isClosable: true,
-                  })
+        return res.json();
+    }).then(resData => {
+        if (resData.errors) {
+            toast({
+                title: 'Error.',
+                description: "Ocurrio un error al crear el reporte",
+                status: 'error',
+                duration: 4000,
+                isClosable: true,
+              })
+        
+        } else {
+            toast({
+                title: 'Reporte Creado.',
+                description: "Su reporte ha sido creado",
+                status: 'success',
+                duration: 4000,
+                isClosable: true,
+              })
 
-            }
-        }).catch(err => {
-            console.log(err);
-        });
-    }
-    createUserReport();
-
-}, [createNowUserReport])
-    
+        }
+    }).catch(err => {
+        console.log(err);
+    });
+}
         
     return (
         <>
@@ -198,7 +193,7 @@ useEffect(() => {
                         onChange={(e) => handleOnChangeCap(e)}
                     />
                 </FormControl>
-                <Button disable={`${!allValuesValidated}`} onClick={setCreateNowUserReport(true)}>Subir Reporte</Button>
+                <Button disable={`${!allValuesValidated}`} onClick={createUserReport()}>Subir Reporte</Button>
             </DrawerBody>
           </DrawerContent>
         </Drawer>
