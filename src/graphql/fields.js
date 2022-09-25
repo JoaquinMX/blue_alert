@@ -8,8 +8,8 @@ export function createUserReportMutation(report) {
                 phone: "${report.phone}",
                 incidentKind: "${report.incidentKind}",
                 description: "${report.description}",
-                latitude: "${report.latitude + 'jaja no sirvo'}",
-                longitude: "${report.longitude + 'jaja yo tampoco sirvo'}",
+                latitude: "${report.latitude}",
+                longitude: "${report.longitude}",
                 isVictim: ${report.isVictim},
                 isReportedToPolice: ${report.isReportedToPolice},
                 policeReport: "${report.policeReport}"

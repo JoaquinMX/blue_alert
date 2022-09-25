@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, useRef } from 'react';
 import {
     Button,
     Drawer,
@@ -16,9 +16,11 @@ import {
     useToast,
     useDisclosure,
   } from '@chakra-ui/react'
+import { Box, SkeletonText } from '@chakra-ui/react';
+import { useJsApiLoader, GoogleMap, Marker } from '@react-google-maps/api';
 import { createUserReportMutation } from '../graphql/fields.js'
+
 import ReCAPTCHA from "react-google-recaptcha";
-import GoogleMaps from '../components/GoogleMaps.js';
 
 function ReportForm() {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -28,13 +30,12 @@ function ReportForm() {
     const [ phoneNumber, setPhoneNumber ] = useState('');
     const [ incidentKind, setIncidentKind ] = useState('');
     const [ description, setDescription ] = useState('');
-    const [ latitude, setLatitude ] = useState('');
-    const [ longitude, setLongitude ] = useState('');
     const [ isVictim, setIsVictim ] = useState('1');
     const [ isReportedToPolice, setIsReportedToPolice] = useState('1');
     const [ policeReport, setPoliceReport ] = useState('');
     const [isVerified, setIsVerified] = useState(false);
-    const [createNowUserReport, setCreateNowUserReport] = useState(false);
+    const [myRef, setMyRef] = useState({ lat: 25.645881, lng: -100.288731});
+
 
     const toast = useToast()
 
@@ -56,8 +57,8 @@ function createUserReport() {
         phone: phoneNumber,
         incidentKind: incidentKind,
         description: description,
-        latitude: latitude,
-        longitude: longitude,
+        latitude: myRef.lat,
+        longitude: myRef.lng,
         isVictim: isVictim === '1' ? true : false,
         isReportedToPolice: isReportedToPolice === '1' ? true : false,
         policeReport: policeReport,
@@ -138,7 +139,7 @@ function createUserReport() {
                         <option value='Acoso'>Homicidio</option>
                     </Select>
 
-                    <GoogleMaps />
+                    {GoogleMaps(myRef, setMyRef)}
 
                     <FormLabel>Descripción</FormLabel>
                     <Input type='phone' onChange={(e) => {setDescription(e.target.value)}} />
@@ -182,5 +183,48 @@ function createUserReport() {
       </>
     )
 }
+
+const center = { lat: 25.645881, lng: -100.288731};
+function GoogleMaps(myRef, setMyRef) {
+
+    const [map, setMap] = useState(/** @type google.maps.Map */null);
+    // const [myRef, setMyRef] = useState({ lat: 25.645881, lng: -100.288731});
+
+    /** @type React.mutableRefObject<HTMLInputElement> */
+    const ref = useRef();
+    const { isLoaded } = useJsApiLoader({
+        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
+    });
+
+  if(!isLoaded) {
+    return <SkeletonText />
+  }
+
+  function setValuesOfRef(value) {
+    if (value === '') {
+        return;
+    }
+    const centerPoint = { lat: parseFloat(value.latLng.lat()), lng: parseFloat(value.latLng.lng()) }
+    setMyRef(centerPoint);
+  }
+
+  return (
+    <Box>
+        <GoogleMap center={center} zoom={15} mapContainerStyle={{width:'100%', height:'10rem'}}
+            options={{
+                zoomControl: false,
+                streetViewControl: false,
+                mapTypeControl: false,
+                fullscreenControl: false
+            }}
+            onLoad={(map) => setMap(map)}
+            onClick={(e) => setValuesOfRef(e)}
+        >
+            {<Marker position={myRef} map={map}/> }
+        </GoogleMap>
+    </Box>
+  )
+}
+
 
 export default ReportForm;
